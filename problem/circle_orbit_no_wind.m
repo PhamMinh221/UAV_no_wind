@@ -1,6 +1,6 @@
 clear;clc;
 
-% addpath(genpath('C:\Users\minh2\OneDrive\Desktop\UAV\Pham_Hong_Minh_VDT_Baitap_UAV'));
+addpath(genpath('C:\Users\minh2\OneDrive\Desktop\UAV\Pham_Hong_Minh_VDT_Baitap_UAV'));
 rootPath = fileparts(mfilename('fullpath'));
 addpath(genpath(rootPath));
 
@@ -12,7 +12,7 @@ time_sampling = 0.01;
 
 %User set up
 [MAV.pn, MAV.pe, MAv.pd, pn_center, pe_center, direction, Va_command ] =  parameter_setup();
-Radius_of_trajectory= sqrt((MAV.pn - pn_center)^2 + (MAV.pe - pe_center)^2);
+Radius_of_trajectory= direction* sqrt((MAV.pn - pn_center)^2 + (MAV.pe - pe_center)^2);
 MAV.psi = set_psi(MAV.pn, MAV.pe, pn_center,pe_center, direction);
 
 [state_trim, input_trim] = solve_trim(MAV, Va_command, Radius_of_trajectory); 
@@ -28,7 +28,7 @@ MAV.r            = state_trim(7);
 MAV.alpha     = state_trim(8);
 MAV.beta      = state_trim(9);
 MAV.phi        = state_trim(10);
-MAV.psi = set_psi(MAV.pn, MAV.pe, pn_center,pe_center, direction);
+
 
 
 delta_e         = input_trim(1);
